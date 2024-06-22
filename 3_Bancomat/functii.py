@@ -20,7 +20,6 @@ def citire_fisier(fis):
         n = int(fis.readline().strip())
         if n <= 0:
             raise ValueError("Numărul de bancnote trebuie să fie pozitiv și nenul.")
-
         bancnote_disponibile = []
         for _ in range(n):
             linie = fis.readline().strip()
@@ -29,7 +28,6 @@ def citire_fisier(fis):
                 bancnote_disponibile.append((valoare_bancnota, cantitate_bancnota))
             else:
                 raise ValueError("Linie goală detectată în timpul citirii bancnotelor.")
-
         print("Citire din fișier cu succes")
         return n, bancnote_disponibile
 

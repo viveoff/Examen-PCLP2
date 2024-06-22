@@ -1,94 +1,39 @@
-def includeNod(nod, lst_urm, graf):
-    if nod in graf:
-        graf[nod] += lst_urm
-    else:
-        graf[nod] = lst_urm
-
-
-def cauta_drumuri(graf, nod_crt, stop, cale=[]):
-    cale = cale + [nod_crt]
-    if nod_crt == stop:
-        return [cale]
-    if nod_crt not in graf:
-        return []
-    toateDrumurile = []
-    for nod in graf[nod_crt]:
-        if nod not in cale:
-            drumuri = cauta_drumuri(graf, nod, stop, cale)
-            for drum in drumuri:
-                toateDrumurile.append(drum)
-    return toateDrumurile
-
-
-def cauta_cale(graf, oras_crt, stop, cale=[]):
-    cale = cale + [oras_crt]
-    if oras_crt == stop:
-        return cale
-    if oras_crt not in graf:
-        return None
-    for oras_urm in graf[oras_crt]:
-        if oras_urm not in cale:
-            drum = cauta_cale(graf, oras_urm, stop, cale)
-            if drum:
-                return drum
-    return None
-
-
-def citeste(numeFisier):
-    with open(numeFisier, 'r') as f:
-        n, start, destinatie = map(int, f.readline().split())
-        sosele = [[] for _ in range(n + 1)]
-        for linie in f:
-            orase = list(map(int, linie.split()[:-1]))
-            for oras in orase:
-                sosele[orase[0]].append(oras)
-    return (n, start, destinatie, sosele)
-
-
 def citire_tastatura():
-    n = int(input("Introduceți numărul de orașe: "))
-    start = int(input("Introduceți orașul de start: "))
-    destinatie = int(input("Introduceți orașul de destinație: "))
-    sosele = [[] for _ in range(n + 1)]
-    print("Introduceți drumurile între orașe (format: oraș1 oraș2 oraș3 ... orașN, terminați cu o linie goală):")
-    while True:
-        linie = input()
-        if linie == "":
-            break
-        orase = list(map(int, linie.split()))
-        for oras in orase[1:]:
-            sosele[orase[0]].append(oras)
-    return (n, start, destinatie, sosele)
+    global n, start, stop, sosele
+    n = int(input("Introduceti numarul de orase: "))
+    start, stop = map(int, input("Introduceti orasul de start si orasul de destinatie separate prin spatiu: ").split())
 
+    # Initializare matrice sosele
+    sosele = []
+    for i in range(n):
+        drumuri_input = input(f"Drumuri pentru orasul {i + 1}: ").split()
+        drumuri = [0] * n
+        for drum in drumuri_input:
+            if int(drum) != 0:
+                drumuri[int(drum) - 1] = 1
+        sosele.append(drumuri)
 
-def afisare_date(n, start, destinatie, sosele):
-    print(f"Număr de orașe: {n}")
-    print(f"Start: {start}")
-    print(f"Destinație: {destinatie}")
-    print("Șoselele:")
-    for i in range(1, len(sosele)):
-        print(f"{i}: {', '.join(map(str, sosele[i]))}")
+    return n, start, stop, sosele
 
-def rezolva_problema(n, start, destinatie, sosele):
-    # Transformăm lista de șosele într-un graf pentru funcțiile cauta_drumuri și cauta_cale
-    graf = {i: [] for i in range(1, n + 1)}
-    for i in range(1, len(sosele)):
-        for oras in sosele[i]:
-            graf[i].append(oras)
+# functii.py
 
-    drumuri = cauta_drumuri(graf, start, destinatie)
-    cale = cauta_cale(graf, start, destinatie)
+def citire_fisier(file_name):
+    global n, start, stop, sosele
+    with open(file_name, 'r') as f:
+        n = int(f.readline().strip())
+        start, stop = map(int, f.readline().strip().split())
 
-    if drumuri:
-        print("Toate drumurile de la start la destinație:")
-        for drum in drumuri:
-            print(" -> ".join(map(str, drum)))
-    else:
-        print("Nu există drumuri de la start la destinație.")
+        sosele = []
+        for i in range(n):
+            drumuri_input = f.readline().strip().split()
+            drumuri = [0] * n
+            for drum in drumuri_input:
+                if int(drum) != 0:
+                    drumuri[int(drum) - 1] = 1
+            sosele.append(drumuri)
 
-    if cale:
-        print("O cale de la start la destinație:")
-        print(" -> ".join(map(str, cale)))
-    else:
-        print("Nu există o cale de la start la destinație.")
+    return n, start, stop, sosele
 
+def afisare_matrice(sosele):
+    for linie in sosele:
+        print(' '.join(map(str, linie)))

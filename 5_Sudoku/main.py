@@ -15,16 +15,26 @@ def citeste_sudoku():
     return sudoku
 
 
-def citire_fisier(fis):
+def citire_fisier(fisier):
     sudoku = []
     try:
-        for _ in range(9):
-            linie = fis.readline().strip()
-            if linie:
-                sudoku.append(list(map(int, linie.split())))
-        return sudoku
-    except ValueError:
+        for i in range(9):
+            rand = fisier.readline().strip()
+            if not rand:  # Verificăm dacă am ajuns la sfârșitul fișierului
+                raise EOFError("Sfârșit de fișier înainte de a completa un set Sudoku.")
+            rand = [int(x) for x in rand.split()]
+            if len(rand) != 9:
+                raise ValueError("Rândul trebuie să conțină exact 9 cifre.")
+            sudoku.append(rand)
+    except EOFError as e:
+        print(e)
         return None
+    except ValueError as e:
+        print(e)
+        return None
+
+    return sudoku
+
 def afiseaza_sudoku(sudoku):
     if sudoku:
         print("Tabloul Sudoku introdus este:")
@@ -108,12 +118,17 @@ def main():
             case 1:
                 sudoku = citeste_sudoku()
             case 2:
+                fis = None
                 try:
                     fis = open("file.txt", "r")
-                    sudoku = citire_fisier(fis)
-                except FileNotFoundError:
-                    print("-")
-                fis.close()
+                    while True:
+                        sudoku = citire_fisier(fis)
+                        if sudoku is None:
+                            break
+
+                finally:
+                    if fis is not None:
+                        fis.close()
             case 3:
                 afiseaza_sudoku(sudoku)
             case 4:

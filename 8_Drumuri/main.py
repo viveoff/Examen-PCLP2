@@ -1,32 +1,29 @@
-from functii import cauta_drumuri, cauta_cale, citire_tastatura, citeste, afisare_date, rezolva_problema
+# main.py
+
+from functii import *
 
 def main():
-    n, start, destinatie, sosele = 0, 0, 0, []
     while True:
-        print("\nMeniu:")
-        print("1. Citire date de la tastatură")
-        print("2. Citire date din fișier")
-        print("3. Afișare date citite")
-        print("4. Rezolvare")
+        print("1. Citire tastatura")
+        print("2. Citire fisier")
+        print("3. Afisare matrice")
+        print("4. Iesire")
 
-        opt = input("Alegeți o opțiune: ")
+        opt = int(input("Alege: "))
 
         match opt:
-            case "1":
-                n, start, destinatie, sosele = citire_tastatura()
-            case "2":
-                n, start, destinatie, sosele = citeste('file.txt')
-                print("Citire din fișier cu succes")
-            case "3":
-                if n > 0:
-                    afisare_date(n, start, destinatie, sosele)
-                else:
-                    print("Nu există date de afișat. Citiți mai întâi datele.")
-            case "4":
-                rezolva_problema(n, start, destinatie, sosele)
+            case 1:
+                n, start, stop, sosele = citire_tastatura()
+            case 2:
+                fisier = input("Introdu numele fisierului: ")
+                n, start, stop, sosele = citire_fisier(fisier)
+            case 3:
+                afisare_matrice(sosele)
+            case 4:
+                print("Programul s-a incheiat.")
+                break
             case _:
-                print("Opțiune invalidă! Vă rugăm să selectați o opțiune validă.")
-
+                print("Optiune invalida. Alege din nou.")
 
 if __name__ == "__main__":
     main()

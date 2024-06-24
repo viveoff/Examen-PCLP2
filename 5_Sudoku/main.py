@@ -14,26 +14,25 @@ def citeste_sudoku():
 
     return sudoku
 
+def citire_fisier():
+        sudoku = []
+        set = int(input("Set (1 - 3) : "))
+        with open("file.txt", "r") as f:
+            linii = f.readlines()
+        match (set):
+            case 1:
+                for linie in linii[0:9]:
+                    sudoku.append(list(map(int, linie.strip().split())))
+                return sudoku
+            case 2:
+                for linie in linii[9:18]:
+                    sudoku.append(list(map(int, linie.strip().split())))
+                return sudoku
+            case 3:
+                for linie in linii[18:27]:
+                    sudoku.append(list(map(int, linie.strip().split())))
+                return sudoku
 
-def citire_fisier(fisier):
-    sudoku = []
-    try:
-        for i in range(9):
-            rand = fisier.readline().strip()
-            if not rand:  # Verificăm dacă am ajuns la sfârșitul fișierului
-                raise EOFError("Sfârșit de fișier înainte de a completa un set Sudoku.")
-            rand = [int(x) for x in rand.split()]
-            if len(rand) != 9:
-                raise ValueError("Rândul trebuie să conțină exact 9 cifre.")
-            sudoku.append(rand)
-    except EOFError as e:
-        print(e)
-        return None
-    except ValueError as e:
-        print(e)
-        return None
-
-    return sudoku
 
 def afiseaza_sudoku(sudoku):
     if sudoku:
@@ -118,17 +117,7 @@ def main():
             case 1:
                 sudoku = citeste_sudoku()
             case 2:
-                fis = None
-                try:
-                    fis = open("file.txt", "r")
-                    while True:
-                        sudoku = citire_fisier(fis)
-                        if sudoku is None:
-                            break
-
-                finally:
-                    if fis is not None:
-                        fis.close()
+                sudoku = citire_fisier()
             case 3:
                 afiseaza_sudoku(sudoku)
             case 4:

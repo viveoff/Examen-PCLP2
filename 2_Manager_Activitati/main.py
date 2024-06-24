@@ -1,33 +1,33 @@
-from functii import citire_tastatura, afisare, citire_fisier, scriere_fisier, rezolvare
+from functii import *
 
 def main():
-    while True:
-        print("1. Citire date de la tastatura")
-        print("2. Citire date din fisier")
-        print("3. Afisare date citite")
-        print("4. Scriere date")
-        print("5. Rezolvare problema")
-        print("6. Info autor")
-        print("7. Exit")
+    spectacole = []
+    n = 0
 
+    while True:
+        print("1. Citire tastatura")
+        print("2. Citire fisier")
+        print("3. Afisare date")
+        print("4. Scriere date")
+        print("5. Rezolvare")
         opt = int(input("Alege: "))
-        match(opt):
+        match opt:
             case 1:
-                citire_tastatura()
+                n, spectacole = citire_tastatura()
             case 2:
-                citire_fisier()
+                filename = input("Nume fisier: ")
+                n, spectacole = citire_fisier(filename)
             case 3:
-                afisare()
+                afisare(n, spectacole)
             case 4:
-                scriere_fisier()
+                scriere_fisier(spectacole)
             case 5:
-                rezolvare()
+                rezolvare(spectacole)
             case 6:
-                print("Proiect realizat de Pitu Gabriela-Casandra, gr 3111")
-            case 7:
                 break
             case _:
                 print("Optiune invalida")
+
 
 if __name__ == "__main__":
     main()

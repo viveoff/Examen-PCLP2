@@ -27,25 +27,52 @@ def citire_tastatura():
         concurente.append(concurenti)
     return n, concurente
 
-
-
-
 def citire_fisier():
-    global n, concurente
-    with open("file.txt", 'r') as file:
-            n = int(file.readline().strip())
-            concurente = []
-            for _ in range(n):
-                concurenti_input = file.readline().strip().split()
-                concurenti = [0] * n
-                for c in concurenti_input:
-                    concurenti[int(c) - 1] = 1
-                    concurente.append(concurenti)
-    return n, concurente
+    global numar, concurenti
+    numar = int(input("Set (1 - 4): "))  # Variabilă pentru numărul setului
+    with open("file.txt", "r") as f:
+        linii = f.readlines()
+
+    concurenti = []
+    match numar:
+        case 1:
+            n = int(linii[0].strip())  # Numărul de concurenți din primul set
+            for i in range(1, n + 1):
+                concurenti_input = linii[i].strip().split()
+                concurenti_participant = [0] * n
+                for poz in concurenti_input:
+                    concurenti_participant[int(poz) - 1] = 1
+                concurenti.append(concurenti_participant)
+        case 2:
+            n = int(linii[1].strip())  # Numărul de concurenți din al doilea set
+            for i in range(2, 2 + n):
+                concurenti_input = linii[i].strip().split()
+                concurenti_participant = [0] * n
+                for poz in concurenti_input:
+                    concurenti_participant[int(poz) - 1] = 1
+                concurenti.append(concurenti_participant)
+        case 3:
+            n = int(linii[3].strip())  # Numărul de concurenți din al treilea set
+            for i in range(4, 4 + n):
+                concurenti_input = linii[i].strip().split()
+                concurenti_participant = [0] * n
+                for poz in concurenti_input:
+                    concurenti_participant[int(poz) - 1] = 1
+                concurenti.append(concurenti_participant)
+        case 4:
+            n = int(linii[5].strip())  # Numărul de concurenți din al patrulea set
+            for i in range(6, 6 + n):
+                concurenti_input = linii[i].strip().split()
+                concurenti_participant = [0] * n
+                for poz in concurenti_input:
+                    concurenti_participant[int(poz) - 1] = 1
+                concurenti.append(concurenti_participant)
+
+    return n, concurenti
 
 def afisare_mat():
     for i in range(n):
-        print(*concurente[i])
+        print(*concurenti[i])
 
 fis=open('file.txt','r')
 
@@ -80,7 +107,7 @@ while True:
     if opt == 'C':
         n, concurente = citire_tastatura()
     if opt == 'F':
-        n, concurente = citire_fisier(fis)
+        n, concurenti = citire_fisier()
     if opt == 'A':
         afisare_mat()
     if opt == 'R':

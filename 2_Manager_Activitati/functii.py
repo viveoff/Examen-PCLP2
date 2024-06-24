@@ -1,60 +1,84 @@
-fis = None
 def citire_tastatura():
-  global n,spec_date, spectacole
-  spec_date = []
-  spectacole = []
-  n = int(input("Nr de spectacole: "))
-  for i in range(n):
-      start = input("Start HH:MM : ")
-      end = input("Sfarsit HH:MM : ")
-      ore_start, min_start = map(int, start.strip().split(":"))
-      ore_end, min_end = map(int, end.strip().split(":"))
-      spec_date.append((ore_start, min_start, ore_end, min_end))
-      spectacole.append((ore_start * 60 + min_start, ore_end * 60 + min_end))
-
-
-def afisare():
-    global n,spec_date, spectacole
-    print("Nr de spectacole: ",n)
+    spectacole = []
+    n = int(input("Nr de spectacole: "))
     for i in range(n):
-        ore_start, min_start, ore_end, min_end = spec_date[i]
-        print(f"Spectacolul {i+1}: {ore_start:02d}:{min_start:02d} - {ore_end:02d}:{min_end:02d}")
+        nume = input("Denumire spectacol: ")
+        start = input("Start HH:MM : ")
+        end = input("Sfarsit HH:MM : ")
+        ore_start, min_start = map(int, start.strip().split(":"))
+        ore_end, min_end = map(int, end.strip().split(":"))
+        spectacole.append((nume, ore_start, min_start, ore_end, min_end))
+    return n, spectacole
 
-def scriere_fisier():
-    global spec_date
+
+def citire_fisier(filename):
+    spectacole = []
+
+    with open(filename, "r") as f:
+        linii = f.readlines()
+
+        setul = int(input("Setul (1 - 4): "))
+
+        match setul:
+            case 1:
+                n = int(linii[0].strip())
+                for linie in linii[1:5]:
+                    parte = linie.strip().split()
+                    nume = parte[0]
+                    ore_start, min_start, ore_end, min_end = int(parte[1]), int(parte[2]), int(parte[3]), int(parte[4])
+                    spectacole.append((nume, ore_start, min_start, ore_end, min_end))
+
+            case 2:
+                n = int(linii[5].strip())
+                for linie in linii[6:9]:
+                    parte = linie.strip().split()
+                    nume = parte[0]
+                    ore_start, min_start, ore_end, min_end = int(parte[1]), int(parte[2]), int(parte[3]), int(parte[4])
+                    spectacole.append((nume, ore_start, min_start, ore_end, min_end))
+
+            case 3:
+                n = int(linii[8].strip())
+                for linie in linii[9:12]:
+                    parte = linie.strip().split()
+                    nume = parte[0]
+                    ore_start, min_start, ore_end, min_end = int(parte[1]), int(parte[2]), int(parte[3]), int(parte[4])
+                    spectacole.append((nume, ore_start, min_start, ore_end, min_end))
+
+            case 4:
+                n = int(linii[12].strip())
+                for linie in linii[13:17]:
+                    parte = linie.strip().split()
+                    nume = parte[0]
+                    ore_start, min_start, ore_end, min_end = int(parte[1]), int(parte[2]), int(parte[3]), int(parte[4])
+                    spectacole.append((nume, ore_start, min_start, ore_end, min_end))
+
+            case _:
+                print("Set invalid!")
+                return None, []
+
+    return n, spectacole
+
+def afisare(n, spectacole):
+    print("Nr de spectacole: ", n)
+    for i in range(n):
+        nume, ore_start, min_start, ore_end, min_end = spectacole[i]
+        print(f"Spectacolul {nume}: {ore_start:02d}:{min_start:02d} - {ore_end:02d}:{min_end:02d}")
+
+
+def scriere_fisier(spectacole):
     with open("out.txt", "w") as f:
-        for start_time in spec_date:
-            start_str = f"{start_time[0]}:{start_time[1]}"
-            end_str = f"{start_time[2]}:{start_time[3]}"
-            f.write(f"{start_str} {end_str}\n")
+        for spectacol in spectacole:
+            nume, ore_start, min_start, ore_end, min_end = spectacol
+            f.write(f"{nume} {ore_start:02d}:{min_start:02d} - {ore_end:02d}:{min_end:02d}\n")
 
-def citire_fisier(fis):
-    global bancnote_disponibile
-    try:
-        # Citește numărul de bancnote
-        line = fis.readline().strip()
-        if not line:  # Verifică dacă am ajuns la sfârșitul fișierului
-            return False
 
-        n = int(line)
-        bancnote_disponibile = []
-        for _ in range(n):
-            line = fis.readline().strip()
-            if not line:  # Verifică dacă am ajuns la sfârșitul fișierului
-                return False
-            valoare_bancnota, cantitate_bancnota = map(int, line.split())
-            bancnote_disponibile.append((valoare_bancnota, cantitate_bancnota))
-        print("Citire din fisier cu succes")
-        return True
-    except Exception as e:
-        print("Eroare la citirea din fișier:", e)
-        return False
-
-def rezolvare():
-    global spectacole
+def rezolvare(spectacole):
+    # Transformăm spectacolele în minute pentru sortare și selecție
+    spectacole_minute = [(nume, ore_start * 60 + min_start, ore_end * 60 + min_end) for
+                         nume, ore_start, min_start, ore_end, min_end in spectacole]
 
     # Sortăm spectacolele după ora de finalizare
-    spectacole.sort(key=lambda x: x[1])
+    spectacole_minute.sort(key=lambda x: x[2])
 
     # Lista pentru a ține evidența spectacolelor selectate
     spectacole_selectate = []
@@ -62,8 +86,8 @@ def rezolvare():
     # Ultima oră de finalizare considerată
     ora_ultima_selectata = -1
 
-    for spectacol in spectacole:
-        start, end = spectacol
+    for spectacol in spectacole_minute:
+        nume, start, end = spectacol
         if start >= ora_ultima_selectata:
             spectacole_selectate.append(spectacol)
             ora_ultima_selectata = end
@@ -71,6 +95,10 @@ def rezolvare():
     # Afișăm spectacolele selectate
     print("Spectacole selectate pentru vizionare:")
     for spectacol in spectacole_selectate:
-        ore_start, min_start = divmod(spectacol[0], 60)
-        ore_end, min_end = divmod(spectacol[1], 60)
-        print(f"{ore_start:02d}:{min_start:02d} - {ore_end:02d}:{min_end:02d}")
+        nume, start, end = spectacol
+        ore_start = start // 60
+        min_start = start % 60
+        ore_end = end // 60
+        min_end = end % 60
+        print(f"{nume}: {ore_start:02d}:{min_start:02d} - {ore_end:02d}:{min_end:02d}")
+

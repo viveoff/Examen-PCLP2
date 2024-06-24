@@ -1,5 +1,5 @@
 from functii import *
-global fis
+
 
 while True:
     print("1. Citire tastatura")
@@ -10,18 +10,12 @@ while True:
     opt = int(input("Alege: "))
     match(opt):
         case 1:
-            citire_tastatura()
+            n, volum, obiecte = citire_tastatura()
         case 2:
-            if fis is None:
-              fis = open("file.txt", "r")
-              citire_fisier(fis)
-            fis.close()
-            fis = None
+            n, volum, obiecte = citire_fisier()
         case 3:
-            afisare_date()
+            afisare_date(n, volum, obiecte)
         case 4:
-            scriere_fisier()
-        case 5:
-            rezolvare()
+            scriere_fisier(n, volum, obiecte)
         case _:
             print("Opțiune invalidă")

@@ -1,4 +1,4 @@
-# main.py
+# 1.py
 
 from functii import *
 

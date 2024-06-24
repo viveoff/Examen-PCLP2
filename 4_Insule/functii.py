@@ -1,38 +1,50 @@
-def citire_tastatura(n, ins_start, pod):
-    vector = []
-    n = int(input("Nr poduri: "))
-    ins_start = int(input("Insula start: "))
-    for i in range(n):
-        poduri = input(f"Pod {i+1}: ").split()
-        pod = [int(num) for num in poduri]
-        vector.append(pod)
-    return n, ins_start, vector
-
-
-def afisare(vector):
-    for pod in vector:
-        print(" ".join(map(str, pod)))
-
+def citire_tastatura():
+    poduri = []
+    n = int(input("n = "))
+    ins_start = int(input("Insula de start: "))
+    for _ in range(n):
+        pod = [int(x) for x in input("Poduri intre insule: ").split()]
+        poduri.append(pod)
+    return n, ins_start, poduri
 
 def citire_fisier(fisier):
-    vector = []
-    try:
-        n = int(fisier.readline())
-        inst_start = int(fisier.readline().strip())
-        for i in range(n):
-            poduri = fisier.readline().strip().split()
-            pod = [int(num) for num in poduri]
-            vector.append(pod)
-        return n, inst_start, vector
-    except ValueError:  # End of file or invalid data
-        return None, None, None
+    poduri = []
+    with open(fisier,"r") as file:
+        linii = file.readlines()
+        set = int(input("Set (1 - 4): "))
+        match set:
+            case 1:
+                n = int(linii[0].strip())
+                ins_start = int(linii[1])
+                for linie in linii[2:7]:
+                    pod = list(map(int, linie.strip().split()))
+                    poduri.append(pod)
+            case 2:
+                n = int(linii[7].strip())
+                ins_start = int(linii[8].strip())
+                for linie in linii[9:12]:
+                    pod = list(map(int, linie.strip().split()))
+                    poduri.append(pod)
+            case 3:
+                n = int(linii[0]).strip()
+                ins_start = int(linii[1])
+                for linie in linii[2:7]:
+                    pod = list(map(int, linie.strip().split()))
+                    poduri.append(pod)
+        return n, ins_start, poduri
 
 
-def scriere_fisier(n, ins_start, vector):
-    with open("out.txt", "w") as f:
-        f.write(f"{n}\n")
-        f.write(f"{ins_start}\n")
-        for pod in vector:
-            f.write(" ".join(map(str, pod)) + "\n")
-    print("Scriere fisier cu succes!")
+def afisare(n, ins_start, poduri):
+    print(f"Numar de insule: {n}")
+    print("Insula de start: ", ins_start)
+    for pod in poduri:
+        print(*pod)
+
+def scrier_fisier(n, ins_start, poduri):
+    with open("out.txt", "w") as file:
+        file.write(f"{n}\n")
+        file.write(f"{ins_start}\n")
+        for pod in poduri:
+            file.write(" ".join(map(str, pod)) + "\n")
+
 

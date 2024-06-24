@@ -1,32 +1,25 @@
 from functii import *
 def main():
-    n = 0
-    ins_start = 0
-    vector = []
-    fisier = None
 
     while True:
         print("1. Citire de la tastatura")
         print("2. Citire din fisier")
-        print("3. Afisare matrice drumurilor")
+        print("3. Afisare matrice podurilor")
         print("4. Scriere fisier")
-        print("5. Iesire")
+        print("5. Rezolvare")
         opt = int(input("Alege: "))
         match opt:
             case 1:
-                n, ins_start, vector = citire_tastatura(n, ins_start, vector)
+                n, ins_start, poduri = citire_tastatura()
             case 2:
-                if fisier is None:
-                    fisier = open("file.txt", "r")
-                n, ins_start, vector = citire_fisier(fisier)
-                if n is None:
-                    print("Nu mai sunt date de citit din fisier.")
-                    fisier.close()
-                    fisier = None
+                fisier = input("Nume fisier: ")
+                n, ins_start, poduri = citire_fisier(fisier)
             case 3:
-                afisare(vector)
+                afisare(n, ins_start, poduri)
             case 4:
-                scriere_fisier(n, ins_start, vector)
+                scrier_fisier(n, ins_start, poduri)
+            case 5:
+                Plimbare(ins_crt, k)
 
 
 

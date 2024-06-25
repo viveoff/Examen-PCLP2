@@ -51,6 +51,7 @@ def citire_fisier():
 def afisare(n, matrice):
     for i in range(n):
         print(*matrice[i])
+
 def scriere_fisier(n, start, stop, drumuri):
     with open("out.txt", "w") as f:
         f.write(f"{start} {stop}\n")

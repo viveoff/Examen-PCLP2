@@ -1,44 +1,44 @@
-def includeNod(nod_crt, urm, graf):
-    if nod_crt in graf:
-        graf[nod_crt] += urm
+def includeNod(nod, lst_urm, graf):
+    if nod in graf:
+        graf[nod] += lst_urm
     else:
-        graf[nod_crt] = urm
+        graf[nod] = lst_urm
+
+def citFisGrafNeorientat(numeFis):
+    graf = dict()
+    with open(numeFis, 'r') as f:
+        for linie in f:
+            nod_crt, urm = linie.strip().split(':')
+            nod_crt = nod_crt.strip()
+            lst_urm = [t.strip() for t in urm.split(',') if t != '']
+            includeNod(nod_crt, lst_urm, graf)
+            for x in lst_urm:
+                includeNod(x, [nod_crt], graf)
+    return graf
+
 def citire_tastatura():
     graf = dict()
+    print("Enter graph data (format: node: neighbor1, neighbor2, ...). Enter 'done' when finished:")
     while True:
-        linie = input("Nod: ")
-        if linie == "":
+        linie = input().strip()
+        if linie.lower() == 'done':
             break
-        nod_crt, nod_urm = linie.split(":")
+        nod_crt, urm = linie.split(':')
         nod_crt = nod_crt.strip()
-        urmatori = []
-        for urmator in nod_urm.split(";"):
-            urmator = urmator.strip()
-            if urmator:
-                urmatori.append(urmator)
-        includeNod(nod_crt, urmatori, graf)
+        lst_urm = [t.strip() for t in urm.split(',') if t != '']
+        includeNod(nod_crt, lst_urm, graf)
+        for x in lst_urm:
+            includeNod(x, [nod_crt], graf)
     return graf
 
-def citire_fisier():
-    graf = {}
-    nume_fisier = "file.txt"  # Replace with your file path
-    try:
-        with open(nume_fisier, "r") as f:
-            linii = f.readlines()
-            for linie in linii[:6]:  # Adjust as per your file structure
-                linie = linie.strip()
-                if linie:
-                    nod_crt, urm = linie.split(":")
-                    nod_crt = nod_crt.strip()
-                    urm = [urmator.strip() for urmator in urm.split(",") if urmator.strip()]
-                    includeNod(nod_crt, urm, graf)
-    except FileNotFoundError:
-        print(f"File '{nume_fisier}' not found.")
-    return graf
+def afisare(graf):
+    for nod in graf:
+        print(f"{nod}: {', '.join(graf[nod])}")
 
-def afisare_date(graf):
-    for nod_crt in graf:
-        urm = graf[nod_crt]
-        for urmator in urm:
-            print(f"{nod_crt} {urmator}")
+# Example usage
+if __name__ == "__main__":
 
+    # Reading graph from the keyboard
+    graf_din_tastatura = citire_tastatura()
+    print("Graph read from keyboard:")
+    afisare(graf_din_tastatura)

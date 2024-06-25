@@ -1,4 +1,5 @@
 from functii import *
+# Graf orientat
 def main():
     while True:
         print("1. Citire tastatura")
@@ -10,8 +11,6 @@ def main():
         match(opt):
             case 1:
                 graf = citire_tastatura()
-            case 2:
-                graf = citire_fisier()
             case 3:
                 afisare_date(graf)
 

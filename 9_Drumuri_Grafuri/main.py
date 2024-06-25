@@ -1,6 +1,5 @@
 from functii import *
 def main():
-    graf = None
 
     while True:
         print("\nMeniu:")
@@ -17,9 +16,11 @@ def main():
             case 1:
                 graf = citire_tastatura()
             case 2:
-                graf = citre_fisier()
+                graf = citire_fisier()
             case 3:
                 afisare(graf)
+            case 4:
+                scriere_fisier(graf)
 
 
 if __name__ == "__main__":

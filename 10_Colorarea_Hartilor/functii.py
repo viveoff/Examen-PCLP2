@@ -1,44 +1,29 @@
-def includeNod(nod, lst_urm, graf):
-    if nod in graf:
-        graf[nod] += lst_urm
+def includeNod(nod_crt, nod_urm, graf):
+    if nod_crt in graf:
+        graf[nod_crt] += nod_urm
     else:
-        graf[nod] = lst_urm
+        graf[nod_crt] = nod_urm
 
-def citFisGrafNeorientat(numeFis):
-    graf = dict()
-    with open(numeFis, 'r') as f:
-        for linie in f:
-            nod_crt, urm = linie.strip().split(':')
-            nod_crt = nod_crt.strip()
-            lst_urm = [t.strip() for t in urm.split(',') if t != '']
-            includeNod(nod_crt, lst_urm, graf)
-            for x in lst_urm:
-                includeNod(x, [nod_crt], graf)
-    return graf
 
+# Graf neorientat
 def citire_tastatura():
     graf = dict()
-    print("Enter graph data (format: node: neighbor1, neighbor2, ...). Enter 'done' when finished:")
+    print("Noduri: ")
     while True:
         linie = input().strip()
-        if linie.lower() == 'done':
+        if linie.lower() == '':
             break
-        nod_crt, urm = linie.split(':')
+        nod_crt, nod_urm = linie.split(":")
         nod_crt = nod_crt.strip()
-        lst_urm = [t.strip() for t in urm.split(',') if t != '']
-        includeNod(nod_crt, lst_urm, graf)
-        for x in lst_urm:
+        lista_vecini = []
+        for urm in nod_urm.split(","):
+            if urm:
+                lista_vecini.append(urm.strip())
+        includeNod(nod_crt, lista_vecini, graf)
+        for x in lista_vecini:
             includeNod(x, [nod_crt], graf)
+
     return graf
 
 def afisare(graf):
-    for nod in graf:
-        print(f"{nod}: {', '.join(graf[nod])}")
-
-# Example usage
-if __name__ == "__main__":
-
-    # Reading graph from the keyboard
-    graf_din_tastatura = citire_tastatura()
-    print("Graph read from keyboard:")
-    afisare(graf_din_tastatura)
+    print(graf)

@@ -1,6 +1,10 @@
 A:B,C
 B:C,D
-C: D
+C:D
 D:C
 E:F
 F:C
+A:B,C
+B:D,E
+E:F,K
+K:R

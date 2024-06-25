@@ -4,6 +4,7 @@ def includeNod(nod, lista_vecini, graf):
     else:
         graf[nod] = lista_vecini
 
+# Graf orientat
 def citire_tastatura():
     graf = dict()
     print("Noduri: ")
@@ -20,27 +21,38 @@ def citire_tastatura():
                 lista_vecini.append(vecin.strip())
         includeNod(nod, lista_vecini, graf)
     return graf
-def citre_fisier():
+
+def citire_fisier():
     graf = dict()
+    set = int(input("Set (1 - 4): "))
+    lista_vecini = []
+
     with open("file.txt", 'r') as f:
-        for linie in f:
-            nod_crt, urm = linie.strip().split(':')
-            nod_crt = nod_crt.strip()
-            lst_urm = [t.strip() for t in urm.split(',') if t != '']
-            includeNod(nod_crt, lst_urm, graf)
+        linii = f.readlines()
+        match set:
+            case 1:
+                for linie in linii[0:6]:
+                    nod, vecini = linie.split(":")
+                    for vecin in vecini.split(","):
+                        if vecin.strip():
+                            lista_vecini.append(vecin.strip())
+                    includeNod(nod.strip(), lista_vecini, graf)
+                    lista_vecini = []
+            case 2:
+                for linie in linii[6:10]:
+                    nod, vecini = linie.split(":")
+                    for vecin in vecini.split(","):
+                        if vecin.strip():
+                            lista_vecini.append(vecin.strip())
+                    includeNod(nod.strip(), lista_vecini, graf)
+                    lista_vecini = []
     return graf
 
-
-
 def afisare(graf):
-    for nod in graf:
-        print(f"{nod}: {','.join(graf[nod])}")
+    print(graf)
 
-# Example usage
-if __name__ == "__main__":
-
-
-    # Reading graph from the keyboard
-    graf_din_tastatura = citire_tastatura()
-    print("Graph read from keyboard:")
-    afisare(graf_din_tastatura)
+def scriere_fisier(graf):
+    with open("out.txt", 'w') as f:
+        for nod, vecini in graf.items():
+            linie = f"{nod}:{','.join(vecini)}\n"
+            f.write(linie)

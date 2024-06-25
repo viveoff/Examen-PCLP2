@@ -9,11 +9,13 @@ def main():
         opt = int(input("Alege: "))
         match(opt):
             case 1:
-                n, concurente = citire_tastatura()
+                n, concurente, matrice = citire_tastatura()
             case 2:
                 fisier = input("Nume fisier: ")
-                n, concurente = citire_fisier(fisier)
+                n, concurente, matrice = citire_fisier(fisier)
             case 3:
                 afisare(n, concurente)
+            case 4:
+                scriere_fisier(n, matrice)
 
 main()

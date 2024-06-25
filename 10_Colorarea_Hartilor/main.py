@@ -1,5 +1,4 @@
 from functii import *
-
 def main():
     while True:
         print("1. Citire tastatura")
@@ -8,15 +7,13 @@ def main():
         print("4. Scrierea in fisier")
         print("5. Rezolvare")
         opt = int(input("Alege: "))
-        match opt:
+        match(opt):
             case 1:
-                n, cote, x0, y0 = citire_tastatura()
+                graf = citire_tastatura()
             case 2:
-                n, cote, x0, y0 = citire_fisier()
+                graf = citire_fisier()
             case 3:
-                afisare_date(n, cote, x0, y0)
-            case 4:
-                scrier_fisier(cote, x0, y0)
+                afisare_date(graf)
 
-if __name__ == "__main__":
-    main()
+
+main()

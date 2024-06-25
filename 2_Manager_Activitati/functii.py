@@ -64,7 +64,6 @@ def afisare(n, spectacole):
         nume, ore_start, min_start, ore_end, min_end = spectacole[i]
         print(f"Spectacolul {nume}: {ore_start:02d}:{min_start:02d} - {ore_end:02d}:{min_end:02d}")
 
-
 def scriere_fisier(spectacole):
     with open("out.txt", "w") as f:
         for spectacol in spectacole:

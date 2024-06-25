@@ -1,5 +1,3 @@
-# 1.py
-
 from functii import *
 
 def main():
@@ -7,23 +5,20 @@ def main():
         print("1. Citire tastatura")
         print("2. Citire fisier")
         print("3. Afisare matrice")
-        print("4. Iesire")
+        print("4. Scriere fisier")
+        print("5. Rezolvare")
 
         opt = int(input("Alege: "))
 
         match opt:
             case 1:
-                n, start, stop, sosele = citire_tastatura()
+                n,start, stop, matrice, drumuri = citire_tastatura()
             case 2:
-                fisier = input("Introdu numele fisierului: ")
-                n, start, stop, sosele = citire_fisier(fisier)
+                n, start, stop, matrice, drumuri = citire_fisier()
             case 3:
-                afisare_matrice(sosele)
+                afisare(n, matrice)
             case 4:
-                print("Programul s-a incheiat.")
-                break
-            case _:
-                print("Optiune invalida. Alege din nou.")
+                scriere_fisier(n, start, stop, drumuri)
 
 if __name__ == "__main__":
     main()

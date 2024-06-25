@@ -27,7 +27,6 @@ def citire_fisier(fisier):
                     bancnote.append((valoare, cantitate))
         return  bancnote
 
-
 def afisare(bancnote):
     print(f"Nr de bancnote: {len(bancnote)}")
     for bancnota in bancnote:

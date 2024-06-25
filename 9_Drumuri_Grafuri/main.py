@@ -11,38 +11,16 @@ def main():
         print("5. Rezolvare")
         print("0. Ieșire")
 
-        opt = input("Alegeți o opțiune: ")
+        opt = int(input("Alegeți o opțiune: "))
 
         match opt:
-            case "1":
+            case 1:
                 graf = citire_tastatura()
-            case "2":
-                numeFis = input("Introduceți numele fișierului cu graful: ")
-                graf = citFisGrafOrientat(numeFis)
-            case "3":
-                if graf is not None:
-                    afiseazaGraf(graf)
-                else:
-                    print("Graful nu a fost încă citit.")
-            case "4":
-                print("Opțiunea de scriere a fișierului nu este implementată.")
-            case "5":
-                if graf is not None:
-                    s = input("Introduceți nodul sursă: ").strip()
-                    t = input("Introduceți nodul țintă: ").strip()
+            case 2:
+                graf = citre_fisier()
+            case 3:
+                afisare(graf)
 
-                    drumuri = []
-                    gasesteDrumuri(graf, s, t, [], drumuri)
-
-                    print(f"Drumurile între {s} și {t} sunt:")
-                    for drum in drumuri:
-                        print(drum)
-                else:
-                    print("Graful nu a fost încă citit.")
-            case "0":
-                break
-            case _:
-                print("Opțiune invalidă. Vă rugăm să alegeți o opțiune validă.")
 
 if __name__ == "__main__":
     main()

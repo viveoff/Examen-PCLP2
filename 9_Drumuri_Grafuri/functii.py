@@ -1,12 +1,28 @@
-def includeNod(nod, lst_urm, graf):
+def includeNod(nod, lista_vecini, graf):
     if nod in graf:
-        graf[nod] += lst_urm
+        graf[nod] += lista_vecini
     else:
-        graf[nod] = lst_urm
+        graf[nod] = lista_vecini
 
-def citFisGrafOrientat(numeFis):
+def citire_tastatura():
     graf = dict()
-    with open(numeFis, 'r') as f:
+    print("Noduri: ")
+    while True:
+        linie = input().strip()
+        if linie.lower() =='':
+            break
+        nod, vecini = linie.split(":")
+        nod = nod.strip()
+
+        lista_vecini = []
+        for vecin in vecini.split(","):
+            if vecin:
+                lista_vecini.append(vecin.strip())
+        includeNod(nod, lista_vecini, graf)
+    return graf
+def citre_fisier():
+    graf = dict()
+    with open("file.txt", 'r') as f:
         for linie in f:
             nod_crt, urm = linie.strip().split(':')
             nod_crt = nod_crt.strip()
@@ -14,18 +30,7 @@ def citFisGrafOrientat(numeFis):
             includeNod(nod_crt, lst_urm, graf)
     return graf
 
-def citire_tastatura():
-    graf = dict()
-    print("Enter graph data (format: node: neighbor1, neighbor2, ...). Enter 'done' when finished:")
-    while True:
-        linie = input().strip()
-        if linie.lower() == 'done':
-            break
-        nod_crt, urm = linie.split(':')
-        nod_crt = nod_crt.strip()
-        lst_urm = [t.strip() for t in urm.split(',') if t != '']
-        includeNod(nod_crt, lst_urm, graf)
-    return graf
+
 
 def afisare(graf):
     for nod in graf:

@@ -23,7 +23,7 @@ def citire_tastatura():
         includeNod(nod_crt, nod_urm, graf)
 
         for vec in nod_urm:
-            includeNod(vec, [nod_crt], graf)
+            includeNod(vecin, [nod_crt], graf)
 
     return graf
 

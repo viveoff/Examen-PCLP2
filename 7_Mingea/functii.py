@@ -18,11 +18,11 @@ def citire_fisier():
                 n = int(linii[0])
                 cote = n * [None]
                 cale = n * [None]
-                for i in range(n):
-                    cote[i] = [int(x) for x in linii[i+1].strip().split()]
-                    cale[i] = [0] * n
+                for i, linie in enumerate(linii[1:4]):
+                    cote[i] = linie.split()
                 x0 = int(linii[4])
                 y0 = int(linii[5])
+
     return n, cote, x0, y0
 
 def afisare_date(n, cote, x0, y0):

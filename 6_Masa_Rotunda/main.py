@@ -11,10 +11,9 @@ def main():
             case 1:
                 n, concurente, matrice = citire_tastatura()
             case 2:
-                fisier = input("Nume fisier: ")
-                n, concurente, matrice = citire_fisier(fisier)
+                n, concurente, matrice = citire_fisier()
             case 3:
-                afisare(n, concurente)
+                afisare_date(n, matrice)
             case 4:
                 scriere_fisier(n, matrice)
 

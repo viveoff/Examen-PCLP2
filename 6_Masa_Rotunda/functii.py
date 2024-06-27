@@ -1,47 +1,52 @@
 def citire_tastatura():
     n = int(input("n = "))
     concurente = []
-    matrice = []
+    matrice = [[0] * n for _ in range(n)]
     for i in range(n):
         concurenti_input = input(f"Concurente a lui {i+1}: ").split()
-        concurenti = [0] * n
         for c in concurenti_input:
-            concurenti[int(c) - 1] = 1
-        concurente.append(concurenti)
-        matrice.append(concurenti_input)
+            if int(c) != 0:
+                j = int(c) - 1
+                matrice[i][j] = 1
+                matrice[j][i] = 1
+    concurente.append(concurenti_input)
     return n, concurente, matrice
 
-def citire_fisier(fisier):
-    set = int(input("Set (1 - 4): "))
-    with open(fisier, "r") as f:
+
+
+def citire_fisier():
+    set_number = int(input("Set (1 - 4): "))
+    with open("file.txt", "r") as f:
         concurente = []
-        matrice = []
         linii = f.readlines()
-        match set:
+        match set_number:
             case 1:
-                n = int(linii[0])
-                for linie in linii[1:5]:
+                n = int(linii[0].strip())
+                matrice = [[0] * n for _ in range(n)]
+                for i, linie in enumerate(linii[1:1+n]):
                     concurenti_input = list(map(int, linie.split()))
-                    matrice.append(concurenti_input)
-                    concurenti = [0] * n
                     for c in concurenti_input:
-                        concurenti[int(c) - 1] = 1
-                        concurente.append(concurenti)
+                        if c != 0:
+                            j = c - 1
+                            matrice[i][j] = 1
+                            matrice[j][i] = 1
+                concurente.append(concurenti_input)
             case 2:
-                n = int(linii[5])
-                for linie in linii[6:8]:
+                n = int(linii[5].strip())
+                matrice = [[0] * n for _ in range(n)]
+                for i, linie in enumerate(linii[6:6 + n]):
                     concurenti_input = list(map(int, linie.split()))
-                    matrice.append(concurenti_input)
-                    concurenti = [0] * n
                     for c in concurenti_input:
-                        concurenti[int(c) - 1] = 1
-                        concurente.append(concurenti)
-
+                        if c != 0:
+                            j = c - 1
+                            matrice[i][j] = 1
+                            matrice[j][i] = 1
+                concurente.append(concurenti_input)
     return n, concurente, matrice
 
-def afisare(n, concurente):
+def afisare_date(n, matrice):
     for i in range(n):
-        print(*concurente[i])
+        print(*matrice[i])
 
 def scriere_fisier(n, matrice):
     with open("out.txt", "w") as f:

@@ -1,6 +1,5 @@
 from functii import *
 def main():
-
     while True:
         print("\nMeniu:")
         print("1. Citire date de la tastatură")

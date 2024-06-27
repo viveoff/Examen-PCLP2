@@ -21,7 +21,7 @@ def citire_fisier():
     set = int(input("Set (1 - 4): "))
     with open("file.txt", "r") as f:
         linii = f.readlines()
-        for linie in linii[0:6]:
+        for linie in linii[0:3]:
             nod, vecini = linie.split(":")
             nod = nod.strip()
             lista_vecini = [v.strip() for v in vecini.split(",") if v.strip()]

@@ -1,16 +1,8 @@
 def citire_tastatura():
     sudoku = []
     for i in range(9):
-        while True:
-            try:
-                rand = input(f"Randul {i+1}: ").strip()
-                rand = [int(x) for x in rand]
-                if len(rand) != 9:
-                    raise ValueError
-                sudoku.append(rand)
-                break
-            except ValueError:
-                print("Introdu 9 cifre")
+        rand = [int(x) for x in input(f"Randul {i+1}: ").strip()]
+        sudoku.append(rand)
     return sudoku
 
 def citire_fisier(fisier):
@@ -32,7 +24,6 @@ def citire_fisier(fisier):
                 for linie in linii[0:9]:
                     sudoku.append(list(map(int, linie.strip().split())))
     return sudoku
-
 def afisare(sudoku):
     for rand in sudoku:
         print(*rand)

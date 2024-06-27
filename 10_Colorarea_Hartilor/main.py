@@ -11,6 +11,8 @@ def main():
         match(opt):
             case 1:
                 graf = citire_tastatura()
+            case 2:
+                graf = citire_fisier()
             case 3:
                 afisare(graf)
 

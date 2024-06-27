@@ -14,9 +14,9 @@ def main():
             case 2:
                 n, cote, x0, y0 = citire_fisier()
             case 3:
-                afisare_date(n, cote, x0, y0)
+                afisare(n, cote, x0, y0)
             case 4:
-                scrier_fisier(cote, x0, y0)
+                scriere_fisier(n, cote, x0, y0)
 
 if __name__ == "__main__":
     main()

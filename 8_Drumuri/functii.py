@@ -1,20 +1,20 @@
 def citire_tastatura():
     n = int(input("n = "))
-    s, d = map(int, input("s, d = ").split())
-    s -= 1
-    d -= 1
+    start, stop = map(int, input("Start, stop: ").split())
 
     drumuri = []
     matrice = [[0] * n for _ in range(n)]
+
     for i in range(n):
-        drumuri_input = input(f"Drumuri pt orasul {i+1}: ").split()
+        drumuri_input = input(f"Drumuri pentru orasul {i+1}: ").split()
         for d in drumuri_input:
             if int(d) != 0:
                 j = int(d) - 1
                 matrice[i][j] = 1
                 matrice[j][i] = 1
         drumuri.append(drumuri_input)
-    return n, s, d, matrice, drumuri
+
+    return n, start, stop, matrice, drumuri
 
 def citire_fisier():
     set = int(input("Set (1 - 4): "))
@@ -23,12 +23,10 @@ def citire_fisier():
         drumuri = []
         match set:
             case 1:
-                n = int(linii[0])
-                s, d = map(int, linii[1].split())
-                s -= 1
-                d -= 1
+                n = int(linii[0].strip())
+                start, stop = map(int, linii[1].strip().split())
                 matrice = [[0] * n for _ in range(n)]
-                for i, linie in enumerate(linii[2:2+n]):
+                for i, linie in enumerate(linii[2:6]):
                     drumuri_input = linie.split()
                     for d in drumuri_input:
                         if int(d) != 0:
@@ -36,28 +34,12 @@ def citire_fisier():
                             matrice[i][j] = 1
                             matrice[j][i] = 1
                     drumuri.append(drumuri_input)
-            case 2:
-                n = int(linii[6])
-                s, d = map(int, linii[7].split())
-                s -= 1
-                d -= 1
-                matrice = [[0] * n for _ in range(n)]
-                for i, linie in enumerate(linii[8:8+n]):
-                    drumuri_input = linie.split()
-                    for d in drumuri_input:
-                        if int(d) != 0:
-                            j = int(d) - 1
-                            matrice[i][j] = 1
-                            matrice[j][i] = 1
-    return n, s, d, matrice, drumuri
-
-def afisare(n, s, d, matrice):
+    return n, start, stop, matrice, drumuri
+def afisare(n, start, stop, matrice):
     for i in range(n):
         print(*matrice[i])
 
-def scriere_fisier(n, s, d , drumuri):
+def scriere_fisier(n, start, stop, drumuri):
     with open("out.txt", "w") as f:
         for drum in drumuri:
             f.write(" ".join(map(str, drum)) + "\n")
-
-

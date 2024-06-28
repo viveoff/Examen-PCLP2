@@ -17,8 +17,7 @@ def citire_fisier(fisier):
                 n = int(linii[0].strip())
                 ins_start = int(linii[1])
                 for linie in linii[2:7]:
-                    pod = list(map(int, linie.strip().split()))
-                    poduri.append(pod)
+                    poduri.append(list(map(int, linie.strip().split())))
             case 2:
                 n = int(linii[7].strip())
                 ins_start = int(linii[8].strip())

@@ -100,4 +100,3 @@ def rezolvare(spectacole):
         ore_end = end // 60
         min_end = end % 60
         print(f"{nume}: {ore_start:02d}:{min_start:02d} - {ore_end:02d}:{min_end:02d}")
-

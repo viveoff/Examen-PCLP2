@@ -7,6 +7,7 @@ while True:
     print("3. Afisare date")
     print("4. Scriere date")
     print("5. Rezolvare")
+    print("6.Exit")
     opt = int(input("Alege: "))
     match(opt):
         case 1:
@@ -16,6 +17,10 @@ while True:
         case 3:
             afisare_date(n, volum, obiecte)
         case 4:
-            scriere_fisier(n, volum, obiecte)
+            scriere_fisier(volum, n, obiecte)
+        case 5:
+            info_autor()
+        case 6:
+            break
         case _:
             print("Opțiune invalidă")

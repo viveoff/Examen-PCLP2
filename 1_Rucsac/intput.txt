@@ -1,0 +1,20 @@
+100
+3
+caiet 10 20
+pix 30 50
+tzuka 22 78
+100
+3
+caiet 10 20
+pix 30 50
+tzuka 22 78
+169
+3
+caiet 10 89
+pix 55 50
+tzuka 22 78
+999
+3
+caiet 10 20
+pix 30 50
+tzuka 22 78

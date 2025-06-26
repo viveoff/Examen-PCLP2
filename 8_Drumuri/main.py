@@ -1,4 +1,4 @@
-from  functii import *
+from functii import *
 
 def main():
     while True:
@@ -12,14 +12,13 @@ def main():
 
         match opt:
             case 1:
-                n, start, stop, matrice, drumuri = citire_tastatura()
+                n,start, stop, matrice, drumuri = citire_tastatura()
             case 2:
                 n, start, stop, matrice, drumuri = citire_fisier()
             case 3:
-                afisare(n, start, stop, matrice)
+                afisare(n, matrice)
             case 4:
                 scriere_fisier(n, start, stop, drumuri)
-
 
 if __name__ == "__main__":
     main()
